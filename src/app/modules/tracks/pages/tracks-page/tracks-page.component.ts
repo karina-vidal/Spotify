@@ -3,7 +3,7 @@ import { TrackModel } from '@core/models/tracks.model';
 import { TrackService } from '@modules/tracks/services/track.service';
 import { TracksModule } from '@modules/tracks/tracks.module';
 import { response } from 'express';
-import { Subscription } from 'rxjs';
+import { lastValueFrom, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-tracks-page',
@@ -20,16 +20,21 @@ export class TracksPageComponent implements OnInit, OnDestroy{
   constructor(private trackService: TrackService){}
 
   ngOnInit(): void{
-    this.trackService.getAllTracks$()
-     .subscribe((response: TrackModel[]) => {
-       this.tracksTrending = response
-     })
+    this.loadDataAll()
+    this.loadDataRandom()
+  }
+
+  async loadDataAll(): Promise<any> {
+    this.tracksTrending = await lastValueFrom(this.trackService.getAllTracks$())
+  }
+
+  loadDataRandom(): void {
      this.trackService.getAllRandom$()
      .subscribe((response: TrackModel[]) => {
        this.tracksTrending = response
      })
   }
-
+  
   ngOnDestroy(): void {
   }
 }
