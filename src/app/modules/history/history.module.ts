@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { HistoryRoutingModule } from '@modules/history/history-routing.module';
-import { HistoryPageComponent } from '@modules/history/pages/history-page/history-page.component';
+import { HistoryRoutingModule } from './history-routing.module';
+import { HistoryPageComponent } from './pages/history-page/history-page.component';
 import { SearchComponent } from './components/search/search.component';
+import { SharedModule } from '@shared/shared.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,7 +15,9 @@ import { SearchComponent } from './components/search/search.component';
   ],
   imports: [
     CommonModule,
-    HistoryRoutingModule
+    SharedModule,
+    HistoryRoutingModule,
+    FormsModule
   ]
 })
 export class HistoryModule { }
