@@ -15,5 +15,12 @@ export class PlayListBodyComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  
+  changeSort(property: string): void {
+    const { order } = this.optionSort
+    this.optionSort = {
+      property,
+      order: order === 'asc' ? 'desc' : 'asc'
+    }
+    console.log(this.optionSort);
+  }
 }
