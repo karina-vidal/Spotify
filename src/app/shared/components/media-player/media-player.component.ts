@@ -27,4 +27,16 @@ export class MediaPlayerComponent implements OnInit, OnDestroy{
     this.listObservers$.forEach( u => u.unsubscribe())
     console.log('BOOMMMMM media-playes.component.tssssssss!');
   }
+
+  handlePosition(event: MouseEvent): void{
+    
+    const elNative: HTMLElement = this.progressBar.nativeElement
+    const { clientX } = event
+    const { x, width } = elNative.getBoundingClientRect()
+    const clickX = clientX - x //TODO: 1050 - x
+    console.log(`Click(x): ${clickX}, Width: ${width}, Width initial: ${x}`);
+    const percentageFromX = (clickX *100) / width
+    console.log(`Click(x): ${percentageFromX}`);
+    this.multimediaService.seekAudio(percentageFromX) 
+  }
 }
